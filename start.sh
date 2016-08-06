@@ -2,9 +2,11 @@
 # simple ffmpeg hls streaming
 #
 # usage:
-#   $ python -m SimpleTornadoServer 8000
+#   $ python -m SimpleHTTPServer 8000
 #
 #   $ ffplay http://0.0.0.0:8000/hls/playlist.m3u8
+#
+#   $ http://127.0.0.1:8000/assets/grind.html
 
 NOARGS=65
 
