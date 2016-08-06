@@ -8,6 +8,7 @@ Prepare virtual environment
     $ pip install pip --upgrade
     $ pip install fabric
     $ pip freeze >require.txt
+    $ pip install tornado==4.3
 
 Install development packages
 
