@@ -29,11 +29,12 @@ http://0.0.0.0:8000/hls/index1.m3u8
 http://0.0.0.0:8000/hls/index2.m3u8
 EOF
 
-ffmpeg -v verbose -i $SOURCE -vcodec libx264 -acodec aac -ac 2 -strict -2 -vf "scale=428:-1" \
-    -crf 18 -profile:v baseline -maxrate 400k -bufsize 800k -pix_fmt yuv420p \
-    -flags -global_header -threads 4 -hls_time 2 -hls_list_size 8 -hls_wrap 9 \
-    -hls_flags delete_segments -start_number 1 hls/index1.m3u8 \
-    -vcodec libx264 -acodec aac -ac 2 -strict -2 -vf "scale=640:-1" -crf 18 \
+HLS="-hls_time 4 -hls_list_size 8 -hls_wrap 9 -hls_flags delete_segments -start_number 1"
+
+ffmpeg -v verbose -i $SOURCE -vcodec libx264 -acodec aac -ac 2 -strict -2 \
+    -vf "[in]yadif=0:-1:0,scale=428:-1[out]" -crf 18 -profile:v baseline \
+    -maxrate 400k -bufsize 800k -pix_fmt yuv420p -flags -global_header \
+    -threads 2 $HLS hls/index1.m3u8 -vcodec libx264 -acodec aac -ac 2 \
+    -strict -2 -vf "[in]yadif=0:-1:0,scale=640:-1[out]" -crf 18 \
     -profile:v baseline -maxrate 750k -bufsize 1500k -pix_fmt yuv420p \
-    -flags -global_header -threads 2 -hls_time 4 -hls_list_size 8 -hls_wrap 9 \
-    -hls_flags delete_segments -start_number 1 hls/index2.m3u8
+    -flags -global_header -threads 4 $HLS hls/index2.m3u8
