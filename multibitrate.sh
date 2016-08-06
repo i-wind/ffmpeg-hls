@@ -2,7 +2,7 @@
 # multibitrate ffmpeg hls streaming
 #
 # usage:
-#   $ python -m SimpleHTTPServer 8000
+#   $ python -m SimpleTornadoServer 8000
 #
 #   $ ffplay http://0.0.0.0:8000/hls/index2.m3u8
 
