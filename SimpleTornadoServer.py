@@ -96,6 +96,11 @@ class StaticFileHandler(tornado.web.StaticFileHandler):
         logging.debug('write called')
         self.flush()
 
+    def set_extra_headers(self, path):
+        # Disable cache
+        # self.set_header("Cache-control", "no-cache")
+        self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+
 
 if __name__ == '__main__':
     if sys.argv[1:]:
